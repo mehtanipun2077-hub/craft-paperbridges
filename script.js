@@ -24,8 +24,8 @@ const grid = document.querySelector('#journal-grid');
 if (grid) {
   notes.forEach((note, index) => {
     const card = document.createElement('article');
-    card.className = 'journal-card';
-    card.innerHTML = `<span class="journal-id">${String(index + 1).padStart(2, '0')} / ${note[0]}</span><div><h3>${note[1]}</h3><p><a href="page.html?page=${index + 1}">Inspect the note <span>↗</span></a></p></div>`;
+    card.className = 'journal-entry';
+    card.innerHTML = `<span class="journal-id">${String(index + 1).padStart(2, '0')}</span><span class="journal-kind">${note[0]}</span><h3>${note[1]}</h3><a class="journal-open" href="page.html?page=${index + 1}" aria-label="Inspect ${note[1]}">↗</a><span class="journal-index">CP / ${String(index + 1).padStart(3, '0')}</span>`;
     grid.appendChild(card);
   });
 }
@@ -45,7 +45,7 @@ if (isHome) {
   gsap.from('.process-item', {y: 35, opacity: 0, duration: .8, stagger: .12, scrollTrigger: {trigger: '.process-list', start: 'top 75%'}});
   gsap.to('.process-list', {y: -25, ease: 'none', scrollTrigger: {trigger: '.process', start: 'top bottom', end: 'bottom top', scrub: 1}});
   gsap.from('.work-card', {y: 50, opacity: 0, duration: 1, stagger: .15, scrollTrigger: {trigger: '.work-grid', start: 'top 78%'}});
-  gsap.from('.journal-card', {y: 25, opacity: 0, duration: .7, stagger: .035, scrollTrigger: {trigger: '.journal-grid', start: 'top 80%'}});
+  gsap.from('.journal-entry', {y: 25, opacity: 0, duration: .7, stagger: .035, scrollTrigger: {trigger: '.journal-list', start: 'top 80%'}});
   gsap.to('.contact-orbit', {rotation: 80, ease: 'none', scrollTrigger: {trigger: '.contact', start: 'top bottom', end: 'bottom top', scrub: 1}});
 
   const storyObject = document.querySelector('.story-object');
@@ -80,4 +80,4 @@ document.querySelectorAll('.magnetic').forEach((button) => {
   button.addEventListener('pointerleave', () => gsap.to(button, {x: 0, y: 0, duration: .5, ease: 'elastic.out(1, .4)'}));
 });
 const loadMore = document.querySelector('#load-more');
-if (loadMore) loadMore.addEventListener('click', (event) => { event.currentTarget.textContent = '67 notes, open'; gsap.to(event.currentTarget, {backgroundColor: '#f26b3a', color: '#172522', duration: .25}); });
+if (loadMore) loadMore.addEventListener('click', (event) => { event.currentTarget.textContent = '67 notes, open'; gsap.to(event.currentTarget, {backgroundColor: '#f4f4f1', color: '#080808', duration: .25}); });
