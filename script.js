@@ -47,6 +47,30 @@ if (isHome) {
   gsap.from('.work-card', {y: 50, opacity: 0, duration: 1, stagger: .15, scrollTrigger: {trigger: '.work-grid', start: 'top 78%'}});
   gsap.from('.journal-card', {y: 25, opacity: 0, duration: .7, stagger: .035, scrollTrigger: {trigger: '.journal-grid', start: 'top 80%'}});
   gsap.to('.contact-orbit', {rotation: 80, ease: 'none', scrollTrigger: {trigger: '.contact', start: 'top bottom', end: 'bottom top', scrub: 1}});
+
+  const storyObject = document.querySelector('.story-object');
+  const storyChapters = gsap.utils.toArray('.story-chapter');
+  const storyProgress = document.querySelector('.story-progress');
+  const storyTimeline = gsap.timeline({
+    scrollTrigger: {
+      trigger: '.story-section',
+      start: 'top top',
+      end: 'bottom bottom',
+      scrub: 1,
+      pin: '.story-stage',
+      anticipatePin: 1,
+      onUpdate: (self) => {
+        const chapter = Math.min(3, Math.floor(self.progress * 4));
+        storyProgress.textContent = `${String(chapter + 1).padStart(2, '0')} — 04`;
+        storyChapters.forEach((item, index) => item.classList.toggle('is-active', index === chapter));
+      }
+    }
+  });
+  storyTimeline
+    .to(storyObject, {rotation: 0, scale: .82, x: -20, duration: 1, ease: 'power2.inOut'})
+    .to(storyObject, {background: 'linear-gradient(90deg,#303030,#a8a8a4 48%,#1c1c1c)', rotation: -9, scale: .9, x: 18, duration: 1, ease: 'power2.inOut'})
+    .to(storyObject, {background: 'linear-gradient(90deg,#080808 0%,#555 18%,#f4f4f1 48%,#222 76%,#080808)', rotation: 8, scale: 1.02, x: -10, duration: 1, ease: 'power2.inOut'})
+    .to(storyObject, {background: 'linear-gradient(90deg,#101010,#f4f4f1 44%,#777 63%,#080808)', rotation: -2, scale: .86, x: 0, duration: 1, ease: 'power2.inOut'});
 }
 
 const cursor = document.querySelector('.cursor-dot');
